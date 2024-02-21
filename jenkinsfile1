@@ -40,7 +40,8 @@ pipeline {
                   echo 'Hello World !'
                   sh '''
                   pwd
-                  curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
+                  cd ccr
+                  // curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
                   echo 'CCR request downloaded'
                   more ccr1
                 '''
