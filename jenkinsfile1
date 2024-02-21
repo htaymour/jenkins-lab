@@ -20,14 +20,14 @@
 pipeline {
     agent none
     stages {
-        stage('Download GitHub file') {
+        stage('Init') {
             agent any
             options {
                 // Timeout counter starts BEFORE agent is allocated
                 timeout(time: 100, unit: 'SECONDS')
             }
             steps {
-                  echo 'Hello World !'
+                  echo ' ** Init statge steps !'
                   sh '''
                   pwd
                   cd ccr
@@ -37,6 +37,7 @@ pipeline {
             script {
                   def ccr_file = sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true)
                   echo "The captured file is: ${ccr_file}"
+                  sh "docker run deployer ${ccr_file} " 
             }
                 
                 
