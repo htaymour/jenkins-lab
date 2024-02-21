@@ -1,7 +1,8 @@
 stage('Download GitHub file'){
 
-  description("Pull files from github repo when some developers push code to github")
+  
   /* scm{
+    description("Pull files from github repo when some developers push code to github")
 
     git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
 
