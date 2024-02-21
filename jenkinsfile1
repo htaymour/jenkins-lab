@@ -1,4 +1,5 @@
-job("dev-ci-job1"){
+stage('Download GitHub file'){
+
   description("Pull files from github repo when some developers push code to github")
   /* scm{
 
@@ -7,6 +8,7 @@ job("dev-ci-job1"){
   } */
   steps
   { 
+    script {
 
      sh '''
      pwd
@@ -20,4 +22,5 @@ job("dev-ci-job1"){
     body: "Please go to ${BUILD_URL} and verify the build"
 
    }
+}
 }
