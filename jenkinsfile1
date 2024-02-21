@@ -3,7 +3,7 @@ job("dev-ci-job1"){
   scm{
 
     /*git 'htaymour/jenkins-lab/blob/main/ccr/ccr1 --origin master'*/
-     git 'https://github.com/htaymour/jenkins-lab/tree/1bc63c817430e90f104f30bd70e7d4731aabdee8/ccr/cc1'
+     git '/ccr/cc1'
 
   }
   steps{ 
