@@ -10,7 +10,7 @@ RUN pip install --no-cache-dir --upgrade pip
 #   && pip install --no-cache-dir -r /usr/src/requirements.txt
 
 COPY *.py ./
-COPY ../ccr/. ./
+COPY ../ccr/ccr* ./
 
 CMD ["python", "./start_pipe.py"]
 
