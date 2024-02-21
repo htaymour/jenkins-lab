@@ -1,6 +1,3 @@
-// stage('Download GitHub file'){
-
-  
 //   /* scm{
 //     description("Pull files from github repo when some developers push code to github")
 
@@ -9,21 +6,14 @@
 //   } */
 //   steps { 
 //     script {
-
-//      sh '''
-//      pwd
-//      curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
-//      echo 'CCR request downloaded'
-//      more ccr1
-//      '''
    
 //     mail to: 'haytham.taymour@orange.com',
 //     subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
-//     body: "Please go to ${BUILD_URL} and verify the build"
+//     body: "Please go to ${BUILD_URL} and verify the build"  
+// }}
 
-//    }
-// }
-// }
+// ============== NOTES =============
+// curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
 
 
 
@@ -41,7 +31,7 @@ pipeline {
                   sh '''
                   pwd
                   cd ccr
-                  // curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
+
                   echo 'CCR request downloaded'
                   more ccr1
                 '''
