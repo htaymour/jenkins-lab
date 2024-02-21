@@ -33,11 +33,12 @@ pipeline {
                   cd ccr
                   echo 'CCR request downloaded. Showing contents of latest file :'
                   cat "$(ls -tp | grep -v / | head -n1)"
-                  def ccr_file = sh(script: "ls -tp | grep -v / | head -n1", returnStdout: true).trim()
-                  def ccr_info = sh(script: cat "$(ls -tp | grep -v / | head -n1)", returnStdout: true).trim()
+                  '''
+                  def ccr_file = sh(script: "ls -tp | grep -v / | head -n1", returnStdout: true)
+                  def ccr_info = sh(script: cat "$(ls -tp | grep -v / | head -n1)", returnStdout: true)
                   echo "The captured file is: ${ccr_file}"
                   echo "The captured data is: ${ccr_info}"
-                '''
+                
 
             }
         }
