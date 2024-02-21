@@ -1,0 +1,2 @@
+paramiko==2.7.1
+prettytable==1.0.1
