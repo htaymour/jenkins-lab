@@ -2,7 +2,7 @@ job("dev-ci-job1"){
   description("Pull files from github repo when some developers push code to github")
   scm{
 
-    git 'htaymour/jenkins-lab/blob/main/ccr/ccr1' --origin master
+    git 'htaymour/jenkins-lab/blob/main/ccr/ccr1 --origin master'
   }
   steps{ 
    echo 'CCR request downloaded'
