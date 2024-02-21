@@ -37,7 +37,7 @@ pipeline {
             script {
                   def ccr_file = sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true)
                   echo "The captured file is: ${ccr_file}"
-                  sh "docker build .  -t "deployer" " 
+                  sh "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t "deployer"" 
                   sh "docker run deployer python start_pipe.py ${ccr_file} " 
             }
                 
