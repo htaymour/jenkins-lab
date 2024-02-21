@@ -4,7 +4,8 @@ job("dev-ci-job1"){
 
     /*git 'htaymour/jenkins-lab/blob/main/ccr/ccr1 --origin master'
      git '/ccr/cc1' */
- curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
+     sh 'pwd' 
+     curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
   }
   steps{ 
    echo 'CCR request downloaded'
