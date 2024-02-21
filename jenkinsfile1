@@ -33,11 +33,12 @@ pipeline {
                   cd ccr
                   echo 'CCR request downloaded. Showing contents of latest file :'
                   cat "$(ls -tp | grep -v / | head -n1)"
+                  cp . ../cac/. 
                   '''
-                  def ccr_file = sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true)
-                  echo "The captured file is: ${ccr_file}"
-                  sh (script: "cp /var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file} ./ ", returnStdout: true)
+
+
             script {
+                  def ccr_file = sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true)
                   echo "The captured file is: ${ccr_file}"
                   def copier = sh (script: "cp /var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file} ./ ", returnStdout: true)
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
