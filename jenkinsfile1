@@ -1,10 +1,10 @@
 job("dev-ci-job1"){
   description("Pull files from github repo when some developers push code to github")
-  scm{
+  /* scm{
 
     git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
 
-  }
+  } */
   steps{ 
 
      sh '''
