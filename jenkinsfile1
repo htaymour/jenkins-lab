@@ -7,8 +7,7 @@ stage('Download GitHub file'){
     git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
 
   } */
-  steps
-  { 
+  steps { 
     script {
 
      sh '''
