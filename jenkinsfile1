@@ -28,14 +28,14 @@ pipeline {
             }
             steps {
                   echo 'Hello World !'
+                  def ccr_file = sh(script: "ls -tp | grep -v / | head -n1", returnStdout: true)
+                  echo "The captured file is: ${ccr_file}"
                   sh '''
                   pwd
                   cd ccr
                   echo 'CCR request downloaded. Showing contents of latest file :'
                   cat "$(ls -tp | grep -v / | head -n1)"
                   '''
-                  def ccr_file = sh(script: "ls -tp | grep -v / | head -n1", returnStdout: true)
-                  echo "The captured file is: ${ccr_file}"
                 
                 
 
