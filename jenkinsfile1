@@ -30,14 +30,21 @@
 pipeline {
     agent none
     stages {
-        stage('Example') {
+        stage('Download GitHub file') {
             agent any
             options {
                 // Timeout counter starts BEFORE agent is allocated
                 timeout(time: 1, unit: 'SECONDS')
             }
             steps {
-                echo 'Hello World'
+                  echo 'Hello World !'
+                  sh '''
+                  pwd
+                  curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
+                  echo 'CCR request downloaded'
+                  more ccr1
+                '''
+
             }
         }
     }
