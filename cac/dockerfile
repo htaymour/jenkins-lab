@@ -2,7 +2,7 @@ FROM python:3
 
 WORKDIR /home/
 
-COPY requirements.txt ./
+COPY requirments.txt ./
 
 
 
