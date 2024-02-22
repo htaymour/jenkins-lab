@@ -33,10 +33,7 @@ pipeline {
                   cd ccr
                   echo 'CCR request downloaded. Showing contents of latest file :'
                   cat "$(ls -tp | grep -v / | head -n1)"
-                  cd ../cac
-                  pwd
-                  ls
-                  cat jenkinsfile1
+                  cp ccr* ../cac/.
                   '''
 
 
