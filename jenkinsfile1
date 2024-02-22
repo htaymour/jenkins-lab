@@ -44,7 +44,7 @@ pipeline {
                   fileOperations([fileCopyOperation(
                                  excludes: '',
                                  flattenFiles: false,
-                                 includes: '/var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file}',
+                                 includes: "/var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file}",
                                  targetLocation: "./"
                                  )]).
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
