@@ -49,7 +49,7 @@ pipeline {
                 //                  )]).
 
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
-                  sh ("docker run deployer --entrypoint python start_pipe.py ${ccr_file} " , returnStdout: true) 
+                  sh ("docker run deployer --entrypoint python start_pipe.py ${ccr_file} ") 
             }
                 
                 
