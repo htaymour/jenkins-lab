@@ -33,7 +33,7 @@ pipeline {
                   cd ccr
                   echo 'CCR request downloaded. Showing contents of latest file :'
                   cat "$(ls -tp | grep -v / | head -n1)"
-
+                  cat jenkinsfile1
                   '''
 
 
@@ -45,7 +45,7 @@ pipeline {
                                  excludes: '',
                                  flattenFiles: false,
                                  includes: "/var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file}",
-                                 targetLocation: "./"
+                                 targetLocation: "./${ccr_file}"
                                  )]).
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
                   sh "docker run deployer python start_pipe.py ${ccr_file} " 
