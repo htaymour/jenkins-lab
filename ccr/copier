@@ -1,1 +1,1 @@
-sudo cp ccr* ../cac
+sudo cp /var/lib/jenkins/workspace/ci-monitoring/ccr/ccr* ../cac
