@@ -1,1 +1,1 @@
-sudo cat ccr* ../cac
+sudo cp ccr* ../cac
