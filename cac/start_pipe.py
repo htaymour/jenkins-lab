@@ -103,7 +103,7 @@ if len(conf) == 0 :
     print ('no config matching change aborting ')
     exit
 
-print ("Configuration preparation to apply for the change :\n\n" + "".join(conf)+'\n\n\n\n')
+# print ("Configuration preparation to apply for the change :\n\n" + "".join(conf)+'\n\n\n\n')
 
 # Preparing ticket :
 ccr = Ticket(ticket_number=ticket,
@@ -113,7 +113,12 @@ ccr = Ticket(ticket_number=ticket,
              configuration=conf    )    
         
 
-print(' * Preparing ticket information below for entering pipe :  \n' + ccr.prt()+'\n\n\n\n')
+print(' * Preparing ticket information below for entering pipe :  \n' )
+ccr.prt()
+
+# Prechecks : 
+
+
 
 
       
