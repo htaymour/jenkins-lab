@@ -1,3 +1,7 @@
+#!groovy
+
+// ============== NOTES =============
+// curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
 //   /* scm{
 //     description("Pull files from github repo when some developers push code to github")
 
@@ -11,9 +15,6 @@
 //     subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
 //     body: "Please go to ${BUILD_URL} and verify the build"  
 // }}
-
-// ============== NOTES =============
-// curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
 
 
 
@@ -40,16 +41,9 @@ pipeline {
             script {
                   def ccr_file=sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true).replaceAll("[\\n\\r]", "")
                   echo "The captured file is: ${ccr_file} and the rest of files${ccr_file} like this"
-                  // def copier = sh (script: "cp /var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file} ./ ", returnStdout: true)
-                //   fileOperations([fileCopyOperation(
-                //                  excludes: '',
-                //                  flattenFiles: false,
-                //                  includes: "${ccr_file}",
-                //                  targetLocation: "../cac/${ccr_file}"
-                //                  )]).
                   sh (script:"cp ccr/${ccr_file} cac/.")
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
-                  sh ("docker run deployer python start_pipe.py ${ccr_file} ") 
+                  // sh ("docker run deployer python start_pipe.py ${ccr_file} ") 
                   //sh ("docker run deployer ls ") 
 
             }
