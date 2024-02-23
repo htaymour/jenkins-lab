@@ -75,7 +75,10 @@ if "interface" in type :       # interface change request
         if "type" in info.lower() : conf.append ('switchport mode ' + info.split(':')[1].strip() + '\n')
         if "vlans" in info.lower() : conf.append ('switchtrunk allowed vlans add  ' + info.split(':')[1].strip() + '\n')
         if "speed " in info.lower() : conf.append ('speed ' + info.split(':')[1].strip() + '\n')
+        if "description " in info.lower() : conf.append ('description ' + info.split(':')[1].strip() + '\n')
+        if "ip " in info.lower() : conf.append ('ip address ' + info.split(':')[1].strip() + '\n')
         if "vlan " in info.lower() :                        # access type adding vlan and port securty and qos for access interfaces
+            conf.append ('switchport ' + '\n')
             conf.append ('switchport mode access vlan ' + info.split(':')[1].strip() + '\n')
             conf.append ('switchport port-security ' + '\n')
             conf.append ('switchport port-security maximum 3' + '\n')
