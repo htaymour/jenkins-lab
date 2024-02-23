@@ -3,18 +3,16 @@ Ticket number : 1003
 Requester : Mark Oberle
 Device name : KDEMO123
 
-Change type : interface config change
+Change type : interface config command
 interface name : gi0/0/3
 interface parameters :
-int type : trunk
-allowed vlans : 100,950
-speed : auto
+int type : access 
+vlan : 100
 
 interface name : gi0/0/4
 interface parameters :
 int type : access 
 vlan : 100
-speed : 1000 
 
 interface name : gi0/0/5
 interface parameters :
