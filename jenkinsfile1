@@ -48,7 +48,7 @@ pipeline {
                 //                  includes: "${ccr_file}",
                 //                  targetLocation: "../cac/${ccr_file}"
                 //                  )]).
-                  sh (script: "copier ${ccr_file} ")
+                  sh ("copier ${ccr_file} ")
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
                   sh ("docker run deployer python start_pipe.py ${ccr_file} ") 
                   //sh ("docker run deployer ls ") 
