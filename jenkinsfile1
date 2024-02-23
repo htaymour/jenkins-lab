@@ -39,7 +39,7 @@ pipeline {
 
 
             script {
-                  def ccr_file=sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true)
+                  def ccr_file=sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true).replaceAll("[\\n\\r]", "")
                   echo "The captured file is: ${ccr_file} and the rest of files${ccr_file} like this"
                   // def copier = sh (script: "cp /var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file} ./ ", returnStdout: true)
                 //   fileOperations([fileCopyOperation(
@@ -48,7 +48,7 @@ pipeline {
                 //                  includes: "${ccr_file}",
                 //                  targetLocation: "../cac/${ccr_file}"
                 //                  )]).
-                  sh (script:"cp ../ccr/${ccr_file} /${ccr_file}")
+                  sh (script:"cp ../ccr/${ccr_file} /.")
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
                   sh ("docker run deployer python start_pipe.py ${ccr_file} ") 
                   //sh ("docker run deployer ls ") 
