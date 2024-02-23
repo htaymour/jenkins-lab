@@ -32,6 +32,7 @@ pipeline {
                   pwd
                   cd ccr
                   echo 'CCR request downloaded. Showing contents of latest file :'
+                  pwd
                   '''
                   //cat "$(ls -tp | grep -v / | head -n1)"
                   // pwd
