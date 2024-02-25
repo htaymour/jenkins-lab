@@ -43,7 +43,7 @@ pipeline {
                   def ccr_file=sh(script: "ls ccr/ -tp | grep -v / | head -n1", returnStdout: true).replaceAll("[\\n\\r]", "")
                   echo "The captured file is: ${ccr_file} and the rest of files${ccr_file} like this"
                   sh (script:"cp ccr/${ccr_file} cac/.")
-                //   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
+                  sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
                   sh ("docker run --rm deployer python start_pipe.py ${ccr_file} ") 
                   //sh ("docker run deployer ls ") 
 
