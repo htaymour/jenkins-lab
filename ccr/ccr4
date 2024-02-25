@@ -1,0 +1,43 @@
+Configuration Change Request. 
+Ticket number : 1005
+Requester : haytham taymour
+Device name : sbx-nxos-mgmt.cisco.com
+
+change category : raw configuration
+configuration parameters :
+int loopback 777
+description Test description for Jenkins test CICD , 3ed ip 80
+ip address  10.12.80.33 255.255.255.0
+interface Lo788
+description Test description for Jenkins test CICD , 3ed ip 81
+ip address  10.11.81.33 255.255.255.0
+router ospf 1
+router id 10.12.80.33
+!
+router bgp 65000
+no auto-summary
+no synchronization
+ bgp log-neighbor-changes
+ neighbor 57.210.107.39 remote-as 51964
+ neighbor 57.210.107.39 disable-connected-check
+ neighbor 57.210.107.39 update-source Loopback777
+ neighbor 57.210.107.39 fall-over
+ neighbor 57.210.107.39 description -- to PE Cisco_PE_BUS32
+ address-family ipv4
+ neighbor 57.210.107.39 activate
+ neighbor 57.210.107.39 send-community both
+network 10.241.52.0 mask 255.255.255.0
+exit
+
+!
+ip bgp-community new-format
+!
+ip access-list extended E_SPLITTUNNEL_NAT_ACL
+ deny   ip 10.241.51.0 0.0.0.255 10.0.0.0 0.255.255.255
+ deny   ip 10.241.51.0 0.0.0.255 172.16.0.0 0.15.255.255
+ deny   ip 10.241.51.0 0.0.0.255 192.168.0.0 0.0.255.255
+ deny   ip any 57.0.0.0 0.255.255.255
+ permit ip 10.241.51.0 0.0.0.255 any
+!
+route-map internet_access permit 10
+ match ip address list E_SPLITTUNNEL_NAT_ACL
