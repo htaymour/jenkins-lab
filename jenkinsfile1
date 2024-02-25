@@ -30,7 +30,6 @@ pipeline {
             steps {
                   echo ' ** Init statge steps !'
                   sh '''
-                  cd 
                   pwd
                   echo 'CCR request downloaded. Showing contents of latest file :'
                   cat "$(ls ccr/ -r  | grep ccr | head -n1)"
