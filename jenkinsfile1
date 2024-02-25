@@ -2,12 +2,12 @@
 
 // ============== NOTES =============
 // curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
-//   /* scm{
-//     description("Pull files from github repo when some developers push code to github")
+  /* scm{
+    description("Pull files from github repo when some developers push code to github")
 
-//     git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
+    git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
 
-//   } */
+  } */
 //   steps { 
 //     script {
    
@@ -43,7 +43,7 @@ pipeline {
                   echo "The captured file is: ${ccr_file} and the rest of files${ccr_file} like this"
                   sh (script:"cp ccr/${ccr_file} cac/.")
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
-                  sh ("docker run -rm deployer python start_pipe.py ${ccr_file} ") 
+                  sh ("docker run --rm deployer python start_pipe.py ${ccr_file} ") 
                   //sh ("docker run deployer ls ") 
 
             }
