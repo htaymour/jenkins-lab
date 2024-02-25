@@ -49,7 +49,7 @@ class connector:
             self.client.connect(hostname=self.hostname, username=self.username, password=self.password)
             self.ssh_shell = self.client.invoke_shell()
             time.sleep(1)  # Wait for the shell to be ready
-            # self.ssh_shell.send('')
+            self.ssh_shell.send('\n')
             time.sleep(1)  # Wait for the initial prompt
             print (self.ssh_shell.recv(65535).decode('utf-8'))
             return True
@@ -58,11 +58,11 @@ class connector:
             return False
 
     def apply_configuration(self):
-        if self.ssh_shell or self.connect():
+        if self.ssh_shell :
             try:
-                configuration = ["conf t"] + self.ticket.configuration + ["end", "wr"]
+                configuration = ["conf t\n"] + self.ticket.configuration + ["end\n", "wr\n"]
                 for command in configuration:
-                    self.ssh_shell.send(command + '\n')
+                    self.ssh_shell.send(command)
                     time.sleep(1)  # Wait for the command to be processed
                     while not self.ssh_shell.recv_ready():
                         time.sleep(1)
@@ -75,12 +75,12 @@ class connector:
 
 
     def show_run(self):
-        if self.ssh_shell or self.connect():
+        if self.ssh_shell :
             try:
                 self.ssh_shell.send('term len 0\n')
                 time.sleep(1)  # Wait for the command to be processed
                 self.ssh_shell.send('show running-config\n')
-                time.sleep(1)  # Wait for the command to be processed
+                time.sleep(5)  # Wait for the command to be processed
                 output = ""
                 while not self.ssh_shell.recv_ready():
                     time.sleep(1)
@@ -173,8 +173,8 @@ def parse_ccr(data):
             if "type" in info.lower() : conf.append ('switchport mode ' + info.split(':')[1].strip() + '\n')
             if "vlans" in info.lower() : conf.append ('switchtrunk allowed vlans add  ' + info.split(':')[1].strip() + '\n')
             if "speed " in info.lower() : conf.append ('speed ' + info.split(':')[1].strip() + '\n')
-            if "description " in info.lower() : conf.append ('description ' + info.split(':')[1].strip() + '\n')
-            if "ip address " in info.lower() : conf.append ('ip address ' + info.split(':')[1].strip() + '\n')
+            if "description " in info.lower() : conf.append ('description ' + info.split(':')[1].strip() )
+            if "ip address" in info.lower() : conf.append ('ip address ' + info.split(':')[1].strip() + '\n')
             if "vlan " in info.lower() :                        # access type adding vlan and port securty and qos for access interfaces
                 conf.append ('switchport ' + '\n')
                 conf.append ('switchport mode access vlan ' + info.split(':')[1].strip() + '\n')

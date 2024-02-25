@@ -16,5 +16,5 @@ ip address  : 10.11.81.33 255.255.255.0
 
 interface name : Eth1/48
 interface parameters :
-int type : access 
+int description : testing jenkins automation interface description
 vlan : 100
