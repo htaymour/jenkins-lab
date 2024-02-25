@@ -35,7 +35,6 @@ class Ticket:
     #     configuration='Interface configuration for Router01'
     # )
 
-
 class connector:
     def __init__(self, ticket):
         self.ticket = ticket
@@ -44,53 +43,60 @@ class connector:
         self.password = 'Admin_1234!'  # Replace with the appropriate password
         self.client = paramiko.SSHClient()
         self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-        self.ssh_shell = None
 
     def connect(self):
         try:
-            self.ssh_shell = self.client.connect(hostname=self.hostname, username=self.username, password=self.password)
-            self.ssh_shell.send('\n\n\n')
-            output = self.ssh_shell.recv(65535).decode('utf-8')
-            return output
+            self.client.connect(hostname=self.hostname, username=self.username, password=self.password)
+            self.ssh_shell = self.client.invoke_shell()
+            time.sleep(1)  # Wait for the shell to be ready
+            # self.ssh_shell.send('')
+            time.sleep(1)  # Wait for the initial prompt
+            print (self.ssh_shell.recv(65535).decode('utf-8'))
+            return True
         except paramiko.SSHException as e:
             print(f"Connection failed: {e}")
             return False
-        
+
     def apply_configuration(self):
-        if self.connect():
+        if self.ssh_shell or self.connect():
             try:
-                # with self.client.invoke_shell() as ssh_shell:
-                configuration = ["\n\n\nconf t\n\n"] + self.ticket.configuration
+                configuration = ["conf t"] + self.ticket.configuration + ["end", "wr"]
                 for command in configuration:
                     self.ssh_shell.send(command + '\n')
-                    while not self.ssh_shell.recv_ready():  # Wait for the command to be processed
+                    time.sleep(1)  # Wait for the command to be processed
+                    while not self.ssh_shell.recv_ready():
                         time.sleep(1)
                     output = self.ssh_shell.recv(65535).decode('utf-8')
                     print(output)  # Optionally print the output
-                    self.ssh_shell.send('\n\n\nend\n\nwr\n\n')
                 return True
             except paramiko.SSHException as e:
                 print(f"Failed to apply configuration: {e}")
                 return False
-            # finally: self.client.close()
-        else: return False
-        
+
+
     def show_run(self):
-        if self.connect():
+        if self.ssh_shell or self.connect():
             try:
-                # with self.client.invoke_shell() as ssh_shell:
-                self.ssh_shell.send('\n\n\n\nterm len 0 \n')
-                self.ssh_shell.send('show running-config\n                                                      \n\n\n')
-                time.sleep(10)  # Wait for the command to be processed
-                output = self.sh_shell.recv(65535).decode('utf-8')
-                print(output)  # Optionally print the output
+                self.ssh_shell.send('term len 0\n')
+                time.sleep(1)  # Wait for the command to be processed
+                self.ssh_shell.send('show running-config\n')
+                time.sleep(1)  # Wait for the command to be processed
+                output = ""
+                while not self.ssh_shell.recv_ready():
+                    time.sleep(1)
+                while self.ssh_shell.recv_ready():
+                    output += self.ssh_shell.recv(65535).decode('utf-8')
+                    time.sleep(0.5)  # Wait for more data
+                # print(output)  # Optionally print the output
                 return output
             except paramiko.SSHException as e:
                 print(f"Failed to retrieve running configuration: {e}")
                 return None
-            # finally:
-            #     self.client.close()
-        else: return None
+
+
+# Example usage:
+# ... (create a Ticket object and pass it to the connector)
+
 
 # Example usage:
 # ... (existing code)
@@ -254,9 +260,10 @@ ccr = Ticket(ticket_number=ticket,
 
 print(' * Preparing ticket information below for entering pipe :  \n' )
 ccr.prt()
-conn = connector(ccr)
-pre_config = conn.show_run()
-success = conn.apply_configuration()
+conn = connector(ccr)                 # Init 
+conn.connect()                        # Connect to device
+pre_config = conn.show_run()          # Get current configuration
+success = conn.apply_configuration()  # Apply configuration to device
 post_config = conn.show_run()
 diff_result = compare_configs(pre_config, post_config)
 print('\n\n\n\n\n\n ================ CHANGE IN CONFIGURATION BEFORE AND AFTER COMMIT ' + diff_result)
