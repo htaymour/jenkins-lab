@@ -19,7 +19,8 @@ class Ticket:
             "\nCCR File: " + self.ccrfile +
             "\nDevice Name: " + self.device_name +
             "\nRequestor: " + self.requestor +
-            "\nConfiguration: " + "".join(self.configuration))
+            "\nConfiguration: " )
+            print("\n".join(self.configuration))
     def __str__(self):
             print ("Ticket Number: " + self.ticket_number +
             "\nCCR File: " + self.ccrfile +
@@ -60,12 +61,13 @@ class connector:
     def apply_configuration(self):
         if self.ssh_shell :
             try:
-                configuration = ["conf t\n"] + self.ticket.configuration + ["end\n", "wr\n"]
+                configuration = ["conf t"] + self.ticket.configuration + ["end", "wr"]
                 for command in configuration:
-                    self.ssh_shell.send(command)
+                    self.ssh_shell.send(command + '\n')
+                    # print  (command)
                     time.sleep(1)  # Wait for the command to be processed
                     while not self.ssh_shell.recv_ready():
-                        time.sleep(1)
+                        time.sleep(0.5)
                     output = self.ssh_shell.recv(65535).decode('utf-8')
                     print(output)  # Optionally print the output
                 return True
@@ -84,9 +86,10 @@ class connector:
                 output = ""
                 while not self.ssh_shell.recv_ready():
                     time.sleep(1)
-                while self.ssh_shell.recv_ready():
-                    output += self.ssh_shell.recv(65535).decode('utf-8')
-                    time.sleep(0.5)  # Wait for more data
+                # while self.ssh_shell.recv_ready():
+                #     output += self.ssh_shell.recv(65535).decode('utf-8')
+                #     time.sleep(0.5)  # Wait for more data
+                output = self.ssh_shell.recv(65535).decode('utf-8')
                 # print(output)  # Optionally print the output
                 return output
             except paramiko.SSHException as e:
@@ -156,9 +159,9 @@ def parse_ccr(data):
         if "device" in info.lower() : 
             device = str(info.split(':')[1].strip().lower())
             print ("device name            : " + device )
-        if "change type" in info.lower() : 
+        if "change category" in info.lower() : 
             type = str(info.split(':')[1].strip().lower())
-            print ("Change type            : " + type )
+            print ("change category            : " + type )
             change_data = data[n+1:]
             break
         
@@ -168,33 +171,33 @@ def parse_ccr(data):
     if "interface" in type :       # interface change request
         print ( "interface change configuration procedure : ")
         for n,info in enumerate(change_data):
-            if "name" in info.lower() : conf.append ('interface ' + info.split(':')[1].strip()+'\n')
+            if "name" in info.lower() : conf.append ('interface ' + info.split(':')[1].strip())
             # if "parameters" in info.lower() : conf.append ('\n')
-            if "type" in info.lower() : conf.append ('switchport mode ' + info.split(':')[1].strip() + '\n')
-            if "vlans" in info.lower() : conf.append ('switchtrunk allowed vlans add  ' + info.split(':')[1].strip() + '\n')
-            if "speed " in info.lower() : conf.append ('speed ' + info.split(':')[1].strip() + '\n')
+            if "type" in info.lower() : conf.append ('switchport mode ' + info.split(':')[1].strip() )
+            if "vlans" in info.lower() : conf.append ('switchtrunk allowed vlans add  ' + info.split(':')[1].strip() )
+            if "speed " in info.lower() : conf.append ('speed ' + info.split(':')[1].strip() )
             if "description " in info.lower() : conf.append ('description ' + info.split(':')[1].strip() )
-            if "ip address" in info.lower() : conf.append ('ip address ' + info.split(':')[1].strip() + '\n')
+            if "ip address" in info.lower() : conf.append ('ip address ' + info.split(':')[1].strip() )
             if "vlan " in info.lower() :                        # access type adding vlan and port securty and qos for access interfaces
                 conf.append ('switchport ' + '\n')
-                conf.append ('switchport mode access vlan ' + info.split(':')[1].strip() + '\n')
-                conf.append ('switchport port-security ' + '\n')
-                conf.append ('switchport port-security maximum 3' + '\n')
-                conf.append ('switchport port-security maximum 2 vlan access' + '\n')
-                conf.append ('switchport port-security aging time 2' + '\n')
-                conf.append ('switchport port-security violation restrict' + '\n')
-                conf.append ('priority-queue out ' + '\n')
-                conf.append ('mls qos cos override ' + '\n')
-                conf.append ('spanning-tree portfast ' + '\n')
-                conf.append ('spanning-tree bpduguard enable' + '\n')
+                conf.append ('switchport mode access vlan ' + info.split(':')[1].strip() )
+                conf.append ('switchport port-security ' )
+                conf.append ('switchport port-security maximum 3' )
+                conf.append ('switchport port-security maximum 2 vlan access' )
+                conf.append ('switchport port-security aging time 2' )
+                conf.append ('switchport port-security violation restrict' )
+                conf.append ('priority-queue out ' )
+                conf.append ('mls qos cos override ' )
+                conf.append ('spanning-tree portfast ' )
+                conf.append ('spanning-tree bpduguard enable' )
 
     elif "vlan add" in type :      # vlan addition change request
         print ( "vlan addition procedure : ")
         for n,info in enumerate(change_data):
-            if "vlan" in info.lower() : conf.append ('vlan ' + info.split(':')[1].strip()+'\n')
+            if "vlan" in info.lower() : conf.append ('vlan ' + info.split(':')[1].strip())
             if "name" in info.lower() : 
-                conf.append ('name  ' + info.split(':')[1].strip() + '\n')
-                conf.append ('exit  ' + '\n')
+                conf.append ('name  ' + info.split(':')[1].strip() )
+                conf.append ('exit  ')
 
             
     if len(conf) == 0 : 
