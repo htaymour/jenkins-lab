@@ -202,7 +202,12 @@ def parse_ccr(data):
             if "name" in info.lower() : 
                 conf.append ('name  ' + info.split(':')[1].strip() )
                 conf.append ('exit  ')
-
+    elif "raw " in category :      # vlan addition change request
+        print ( "raw configuration procedure : ")
+        for n,info in enumerate(change_data):
+            if "parameters " in info.lower() : 
+                conf.append (change_data[n+1:])
+            
             
     if len(conf) == 0 : 
         print ('no config matching change aborting ')
