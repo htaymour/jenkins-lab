@@ -22,7 +22,7 @@ class Ticket:
             "\nRequestor: " + self.requestor +
             "\nCategory: " + self.category +
             "\nConfiguration: " )
-            print("\n".join(self.configuration))
+            print("".join(self.configuration))
     def __str__(self):
             return ("Ticket Number: " + self.ticket_number +
             "\nCCR File: " + self.ccrfile +
@@ -206,7 +206,7 @@ def parse_ccr(data):
         print ( "raw configuration procedure : ")
         for n,info in enumerate(change_data):
             if "parameters " in info.lower() : 
-                conf.append (change_data[n+1:])
+                conf = change_data[n+1:]
             
             
     if len(conf) == 0 : 
