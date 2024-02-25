@@ -8,24 +8,27 @@ import difflib
 conf = []
 
 class Ticket:
-    def __init__(self, ticket_number, ccrfile, device_name, requestor, configuration):
+    def __init__(self, ticket_number, ccrfile, device_name, requestor, category,configuration):
         self.ticket_number = ticket_number
         self.ccrfile = ccrfile
         self.device_name = device_name
         self.requestor = requestor
+        self.category = category
         self.configuration = configuration
     def prt(self):
             print ("Ticket Number: " + self.ticket_number +
             "\nCCR File: " + self.ccrfile +
             "\nDevice Name: " + self.device_name +
             "\nRequestor: " + self.requestor +
+            "\nCategory: " + self.category +
             "\nConfiguration: " )
             print("\n".join(self.configuration))
     def __str__(self):
-            print ("Ticket Number: " + self.ticket_number +
+            return ("Ticket Number: " + self.ticket_number +
             "\nCCR File: " + self.ccrfile +
             "\nDevice Name: " + self.device_name +
             "\nRequestor: " + self.requestor +
+            "\nCategory: " + self.category +
             "\nConfiguration: " + "".join(self.configuration))
     # Example usage:
     # CCR = Ticket(
@@ -33,6 +36,7 @@ class Ticket:
     #     ccrfile='CCR12345.txt',
     #     device_name='Router01',
     #     requestor='John Doe',
+    #     Category: 'interface change request'
     #     configuration='Interface configuration for Router01'
     # )
 
@@ -146,7 +150,7 @@ def compare_configs(config1, config2):
 
 
 def parse_ccr(data):
-    global ticket,device,requester,type,conf
+    global ticket,device,requester,category,conf
     for n,info in enumerate(data):
         if "change request" in info.lower() : 
             print ("Change file title      : Configuration chnage request")
@@ -160,15 +164,15 @@ def parse_ccr(data):
             device = str(info.split(':')[1].strip().lower())
             print ("device name            : " + device )
         if "change category" in info.lower() : 
-            type = str(info.split(':')[1].strip().lower())
-            print ("change category            : " + type )
+            category = str(info.split(':')[1].strip().lower())
+            print ("change category            : " + category )
             change_data = data[n+1:]
             break
         
 
     # print (change_data.split('interface name : '))
 
-    if "interface" in type :       # interface change request
+    if "interface" in category :       # interface change request
         print ( "interface change configuration procedure : ")
         for n,info in enumerate(change_data):
             if "name" in info.lower() : conf.append ('interface ' + info.split(':')[1].strip())
@@ -191,7 +195,7 @@ def parse_ccr(data):
                 conf.append ('spanning-tree portfast ' )
                 conf.append ('spanning-tree bpduguard enable' )
 
-    elif "vlan add" in type :      # vlan addition change request
+    elif "vlan add" in category :      # vlan addition change request
         print ( "vlan addition procedure : ")
         for n,info in enumerate(change_data):
             if "vlan" in info.lower() : conf.append ('vlan ' + info.split(':')[1].strip())
@@ -258,6 +262,7 @@ ccr = Ticket(ticket_number=ticket,
             ccrfile=file_path,
             device_name=device,
             requestor=requester,
+            category=category,
             configuration=conf    )    
         
 
