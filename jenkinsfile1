@@ -48,8 +48,8 @@ pipeline {
                   if (container == '') {
                         echo 'No old Container exist'
                     } else {
-                        echo 'The old container name is ${container}'
-                        sh ("docker rm ${container}")
+                        echo "The old container name is ${container}"
+                        sh ("docker rm -f ${container}")
                     }
                
                   sh ("docker run -d --name deployer2 deployer tail -f /dev/null")
