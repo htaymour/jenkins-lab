@@ -283,6 +283,7 @@ def save_log(ticket,log_type,data):
     if log_type == "result" : logfile = ticket.ccrfile + "_result_" + logtime
     if log_type == "post_config" : logfile = ticket.device_name
     if log_type == "pre_config" : logfile = ticket.ccrfile+"_rollback_" + logtime
+    if log_type == "change_log" : logfile = ticket.ccrfile+"_info_" + logtime
     os.chdir('logs')
     with open(logfile,"w") as log_f:
         log_message = f"date : {logtime} \n" + data
@@ -337,12 +338,12 @@ post_config = conn.show_run()         # Get configuration after applychanges
 save_log (ccr,"post_config",post_config)
 diff_result = compare_configs(pre_config, post_config)
 save_log (ccr,"result",diff_result)
-
+save_log (ccr,"changelog",ccr.__str__)
 
 # Notification :
 print('\n\n\n\n\n\n ================ CHANGE IN CONFIGURATION BEFORE AND AFTER COMMIT ' + diff_result)
 msg = 'Hello from Jenkins, \n Please note the change request number ' + str(ticket) + ' has been processed with the results shown below : \n\n\n' + diff_result
-send_email_log(email,ticket,msg)
+# send_email_log(email,ticket,msg)
 
 
 
