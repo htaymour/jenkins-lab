@@ -277,17 +277,19 @@ def parse_ccr(data):
 
 def save_log(ticket,log_type,data):
     # Repo update :
-    current_datetime = datetime.datetime.now()
+    current_datetime = datetime.now()
     logtime = current_datetime.strftime("%d-%m-%Y_%H:%M:%S")
     if not (os.path.isdir('logs')) : os.mkdir('logs')
     if log_type == "result" : logfile = ticket.ccrfile + "_result_" + logtime
     if log_type == "post_config" : logfile = ticket.device_name
     if log_type == "pre_config" : logfile = ticket.ccrfile+"_rollback_" + logtime
-    logfile = 'logs\\'+ logfile
+    os.chdir('logs')
     with open(logfile,"w") as log_f:
         log_message = f"date : {logtime} \n" + data
         log_f.write(log_message)
         # No need to explicitly close the file, as 'with' takes care of it
+    print("Log file saved for : logs\\" + logfile)
+    os.chdir('..')
 
                   
                
@@ -308,7 +310,7 @@ def save_log(ticket,log_type,data):
 print ("HELLO WORLD FROM DOCKER CONTANER DEPLOPY SERVER !")
 file_path = str(sys.argv[-1])
 if len(sys.argv) > 1 : print ("working change request filename  :" +  file_path)
-if not (os.path.isfile(file_path)) : exit
+if not (os.path.isfile(file_path)) : exit  # File not passed to script 
 f = open (file_path,"r")
 data =  f.readlines()
 print ("Start parsing change request in pipe to determine the CD script path")
@@ -323,9 +325,9 @@ ccr = Ticket(ticket_number=ticket,
             category=category,
             configuration=conf    )    
         
-# Prechecks  +  Repo update  :
+# Pipeline steps :  Precheks, Repo update , apply config, repo update  :
 print(' * Preparing ticket information below for entering pipe :  \n' )
-ccr.prt()
+ccr.prt()                             # Show ticket information
 conn = connector(ccr)                 # Init 
 conn.connect()                        # Connect to device
 pre_config = conn.show_run()          # Get current configuration

@@ -12,25 +12,6 @@ ip address  10.12.80.33 255.255.255.0
 interface Lo788
 description Test description for Jenkins test CICD , 3ed ip 81
 ip address  10.11.81.33 255.255.255.0
-router ospf 1
-router id 10.12.80.33
-!
-router bgp 65000
-no auto-summary
-no synchronization
- bgp log-neighbor-changes
- neighbor 75.210.107.39 remote-as 25746
- neighbor 75.210.107.39 disable-connected-check
- neighbor 75.210.107.39 update-source Loopback777
- neighbor 75.210.107.39 fall-over
- neighbor 75.210.107.39 description -- to PE Cisco_PE_BUS32
- address-family ipv4
- neighbor 75.210.107.39 activate
- neighbor 75.210.107.39 send-community both
-network 10.241.52.0 mask 255.255.255.0
-
-!
-ip bgp-community new-format
 !
 ip access-list extended E_SPLITTUNNEL_NAT_ACL
  deny   ip 10.241.51.0 0.0.0.255 10.0.0.0 0.255.255.255
