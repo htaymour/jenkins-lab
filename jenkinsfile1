@@ -44,8 +44,9 @@ pipeline {
                   echo "The captured file is: ${ccr_file} and the rest of files${ccr_file} like this"
                   sh (script:"cp ccr/${ccr_file} cac/.")
                   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
-                  sh ("docker run --rm deployer python start_pipe.py ${ccr_file} ") 
-                  //sh ("docker run deployer ls ") 
+                  sh ("docker run --name deployer2 deployer python start_pipe.py ${ccr_file} ")   // --rm removed to be able to copy files after
+                  sh ("docker cp deployer2:/usr/src/ci-monitoring/logs /var/lib/jenkins/workspace/ci-monitoring/logs")
+                  sh ("docker rm deployer2 ") 
 
             }
                 

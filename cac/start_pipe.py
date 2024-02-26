@@ -1,18 +1,22 @@
+__author__ = "Haytham Taymour"
 # start of the CD pipeline which will choose which script to apply in order to complete the deployment of the pipeline.
 import sys
 import os
 import time
 import paramiko
 import difflib
+import smtplib, ssl
+from datetime import datetime
 # import conf_control
 conf = []
 
 class Ticket:
-    def __init__(self, ticket_number, ccrfile, device_name, requestor, category,configuration):
+    def __init__(self, ticket_number, ccrfile, device_name, requestor, email, category,configuration):
         self.ticket_number = ticket_number
         self.ccrfile = ccrfile
         self.device_name = device_name
         self.requestor = requestor
+        self.email = email
         self.category = category
         self.configuration = configuration
     def prt(self):
@@ -20,6 +24,7 @@ class Ticket:
             "\nCCR File: " + self.ccrfile +
             "\nDevice Name: " + self.device_name +
             "\nRequestor: " + self.requestor +
+            "\nemail: " + self.email +
             "\nCategory: " + self.category +
             "\nConfiguration: " )
             print("".join(self.configuration))
@@ -28,6 +33,7 @@ class Ticket:
             "\nCCR File: " + self.ccrfile +
             "\nDevice Name: " + self.device_name +
             "\nRequestor: " + self.requestor +
+            "\nemail: " + self.email +
             "\nCategory: " + self.category +
             "\nConfiguration: " + "".join(self.configuration))
     # Example usage:
@@ -36,6 +42,7 @@ class Ticket:
     #     ccrfile='CCR12345.txt',
     #     device_name='Router01',
     #     requestor='John Doe',
+    #     email = 'self@email',
     #     Category: 'interface change request'
     #     configuration='Interface configuration for Router01'
     # )
@@ -101,33 +108,42 @@ class connector:
                 return None
 
 
-# Example usage:
-# ... (create a Ticket object and pass it to the connector)
+    # Example usage:
+    # ... (create a Ticket object and pass it to the connector)
 
 
-# Example usage:
-# ... (existing code)
+    # Example usage:
+    # ... (existing code)
 
-# connector = NetworkDeviceConnector(ccr)
-# running_config = connector.show_running_config()
-# if running_config:
-#     print("Running Configuration:\n", running_config)
-
-
-
-
-# Example usage:
-# ccr = Ticket(
-#     ticket_number='12345',
-#     ccrfile='path/to/config/file.txt',
-#     device_name='192.168.1.1',
-#     requestor='John Doe',
-#     configuration=['conf t', 'interface GigabitEthernet0/1', 'description Configured by script', 'end']
-# )
+    # connector = NetworkDeviceConnector(ccr)
+    # running_config = connector.show_running_config()
+    # if running_config:
+    #     print("Running Configuration:\n", running_config)
 
 
 
 
+def send_email_log(receiver_email,ticket,msg):
+    try:
+        port = 587
+        sender_email = "h67075014@gmail.com"
+        password = "udfiwulqlebgnatn"
+        message = 'Subject: {}\n\n{}'.format("Jenkies charge request notification ticket " + ticket, msg)
+        smtp_server = "smtp.gmail.com"
+        context = ssl.create_default_context()
+        print ("sending email with notification to : " + receiver_email)
+        # server.login(sender_email, password)
+        with smtplib.SMTP(smtp_server, port) as server:
+            server.ehlo()
+            server.starttls(context=context)  # Secure the connection
+            server.ehlo()
+            server.login(sender_email, password)
+            server.sendmail(sender_email, receiver_email, message)
+        return()
+    except Exception as e:
+        print ("Error while sending mail !\n" + str(e))
+        return(e)
+    
 
 def compare_configs(config1, config2):
     config1_lines = config1.splitlines(keepends=True)
@@ -136,6 +152,8 @@ def compare_configs(config1, config2):
     diff = difflib.unified_diff(config1_lines, config2_lines, fromfile='config1', tofile='config2', lineterm='')
     
     return ''.join(diff)
+
+
     # Example usage:
     # config_a = """interface GigabitEthernet0/1
     #  description Configured by script
@@ -150,7 +168,7 @@ def compare_configs(config1, config2):
 
 
 def parse_ccr(data):
-    global ticket,device,requester,category,conf
+    global ticket,device,requester,email,category,conf
     for n,info in enumerate(data):
         if "change request" in info.lower() : 
             print ("Change file title      : Configuration chnage request")
@@ -160,6 +178,9 @@ def parse_ccr(data):
         if "requester" in info.lower() : 
             requester = str(info.split(':')[1].strip().lower())
             print ("Change requestor name  : " + requester )
+        if "email" in info.lower() : 
+            email = str(info.split(':')[1].strip().lower())
+            print ("Change requestor email  : " + email )
         if "device" in info.lower() : 
             device = str(info.split(':')[1].strip().lower())
             print ("device name            : " + device )
@@ -253,6 +274,37 @@ def parse_ccr(data):
         return ()
 
 
+
+def save_log(ticket,log_type,data):
+    # Repo update :
+    current_datetime = datetime.datetime.now()
+    logtime = current_datetime.strftime("%d-%m-%Y_%H:%M:%S")
+    if not (os.path.isdir('logs')) : os.mkdir('logs')
+    if log_type == "result" : logfile = ticket.ccrfile + "_result_" + logtime
+    if log_type == "post_config" : logfile = ticket.device_name
+    if log_type == "pre_config" : logfile = ticket.ccrfile+"_rollback_" + logtime
+    logfile = 'logs\\'+ logfile
+    with open(logfile,"w") as log_f:
+        log_message = f"date : {logtime} \n" + data
+        log_f.write(log_message)
+        # No need to explicitly close the file, as 'with' takes care of it
+
+                  
+               
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 print ("HELLO WORLD FROM DOCKER CONTANER DEPLOPY SERVER !")
 file_path = str(sys.argv[-1])
 if len(sys.argv) > 1 : print ("working change request filename  :" +  file_path)
@@ -267,23 +319,34 @@ ccr = Ticket(ticket_number=ticket,
             ccrfile=file_path,
             device_name=device,
             requestor=requester,
+            email=email,
             category=category,
             configuration=conf    )    
         
-
+# Prechecks  +  Repo update  :
 print(' * Preparing ticket information below for entering pipe :  \n' )
 ccr.prt()
 conn = connector(ccr)                 # Init 
 conn.connect()                        # Connect to device
 pre_config = conn.show_run()          # Get current configuration
+save_log (ccr,"pre_config",pre_config)
 success = conn.apply_configuration()  # Apply configuration to device
-post_config = conn.show_run()
+post_config = conn.show_run()         # Get configuration after applychanges
+save_log (ccr,"post_config",post_config)
 diff_result = compare_configs(pre_config, post_config)
+save_log (ccr,"result",diff_result)
+
+
+# Notification :
 print('\n\n\n\n\n\n ================ CHANGE IN CONFIGURATION BEFORE AND AFTER COMMIT ' + diff_result)
+msg = 'Hello from Jenkins, \n Please note the change request number ' + str(ticket) + ' has been processed with the results shown below : \n\n\n' + diff_result
+send_email_log(email,ticket,msg)
 
 
 
-# Prechecks : 
+
+
+
 
 
 
