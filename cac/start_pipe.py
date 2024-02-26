@@ -331,7 +331,7 @@ print(' * Preparing ticket information below for entering pipe :  \n' )
 ccr.prt()                             # Show ticket information
 print ("Preparing to connect to device to update repositries and apply changes. Buccle up !")
 conn = connector(ccr)                            # Init 
-if conn.connect() : Print ('Device connected ')  # Connect to device
+if conn.connect() : print ('Device connected ')  # Connect to device
 pre_config = conn.show_run()                     # Get current configuration
 save_log (ccr,"pre_config",pre_config)
 # success = conn.apply_configuration()             # Apply configuration to device
@@ -342,6 +342,7 @@ save_log (ccr,"pre_config",pre_config)
 save_log (ccr,"changelog",ccr.__str__)
 
 # Notification :
+diff_result = "commmited changes "
 print('\n\n\n\n\n\n ================ CHANGE IN CONFIGURATION BEFORE AND AFTER COMMIT ' + diff_result)
 msg = 'Hello from Jenkins, \n Please note the change request number ' + str(ticket) + ' has been processed with the results shown below : \n\n\n' + diff_result
 # send_email_log(email,ticket,msg)
