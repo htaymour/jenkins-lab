@@ -68,6 +68,7 @@ pipeline {
                  usernameVariable: 'htaymour',
                  passwordVariable: 'Cisco@2221')]){
     sh("git push http://$username:$password@https://github.com/htaymour/jenkins-lab")
+                 }
                   
 
                   
