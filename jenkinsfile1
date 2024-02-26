@@ -61,7 +61,7 @@ pipeline {
                   // sh ("git checkout -b main")
                   sh ("git add .")
                   sh ("git commit -m 'Jenkis auto-commit by change file ${ccr_file}'")
-                  sh ("git push -u origin --all")
+                  sh ("git push -u origin --all") 
                   
 
                   
