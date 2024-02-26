@@ -13,11 +13,20 @@ interface Lo788
 description Test description for Jenkins test CICD , 3ed ip 81
 ip address  10.11.81.33 255.255.255.0
 !
-ip access-list extended E_SPLITTUNNEL_NAT_ACL
+interface Lo788
+description Test description for Jenkins test CICD , 3ed ip 81
+ip address  10.11.81.33 255.255.255.0
+interface Lo789
+description Test description for Jenkins test CICD , 3ed ip 81
+!
+interface Lo788
+description Test description for Jenkins test CICD , 3ed ip 81
+!
+ip access-list extended Testing_jenkins_NAT_ACL
  deny   ip 10.241.51.0 0.0.0.255 10.0.0.0 0.255.255.255
  deny   ip 10.241.51.0 0.0.0.255 172.16.0.0 0.15.255.255
  deny   ip 10.241.51.0 0.0.0.255 192.168.0.0 0.0.255.255
  permit ip 10.241.51.0 0.0.0.255 any
 !
 route-map internet_access permit 10
- match ip address list E_SPLITTUNNEL_NAT_ACL
+ match ip address list Testing_jemkins_NAT_ACL
