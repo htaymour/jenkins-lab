@@ -58,7 +58,7 @@ pipeline {
                   // sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/")  //getting logs from finished job
                   sh ("docker rm -f deployer2")                                                           // cleaning up
                   // updating repo
-                  sh ("git checkout -b main")
+                  // sh ("git checkout -b main")
                   sh ("git add .")
                   sh ("git commit -m 'Jenkis auto-commit by change file ${ccr_file}'")
                   sh ("git push -u origin --all")
