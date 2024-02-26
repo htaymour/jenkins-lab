@@ -339,7 +339,7 @@ save_log (ccr,"pre_config",pre_config)
 # save_log (ccr,"post_config",post_config)
 # diff_result = compare_configs(pre_config, post_config)
 # save_log (ccr,"result",diff_result)
-save_log (ccr,"change_log",ccr.__str__)
+save_log (ccr,"change_log",ccr.__str__())
 
 # Notification :
 diff_result = "commmited changes "
