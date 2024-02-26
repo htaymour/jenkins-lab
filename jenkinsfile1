@@ -46,7 +46,7 @@ pipeline {
                 //   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
                 //    sh ("docker rm deployer2 2>/dev/null")
                   sh ("docker run --name deployer2 deployer ")
-                  sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/cac/. deployer2:/usr/src/ ")  # only used when skip build
+                  sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/cac/. deployer2:/usr/src/ ")  // only used when skip build
                   sh ("docker exec deployer2 start_pipe.py ${ccr_file} ")  
                   sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/")
                   sh ("docker rm deployer2") 
