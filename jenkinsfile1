@@ -61,7 +61,13 @@ pipeline {
                   // sh ("git checkout -b main")
                   sh ("git add .")
                   sh ("git commit -m 'Jenkis auto-commit by change file ${ccr_file}'")
-                  sh ("git push -u origin --all") 
+                  // sh ("git push -u origin --all") 
+  //                 withCredentials([sshUserPrivateKey(credentialsId: '<credential-id>', keyFileVariable: 'SSH_KEY')]) {
+  //  sh("git push origin --all")
+   withCredentials([usernamePassword(credentialsId: 'fixed',
+                 usernameVariable: 'htaymour',
+                 passwordVariable: 'Cisco@2221')]){
+    sh("git push http://$username:$password@https://github.com/htaymour/jenkins-lab")
                   
 
                   
