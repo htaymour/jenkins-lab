@@ -59,9 +59,9 @@ pipeline {
                   sh ("docker rm -f deployer2")                                                           // cleaning up
                   // updating repo
                   sh ("git add .")
-                  sh ("git commit -m Jenkis auto-commit by change file ${ccr_file}")
+                  sh ("git commit -m "Jenkis auto-commit by change file ${ccr_file}"")
                   sh ("git push -u origin main")
-                  
+
                   
 
             }
