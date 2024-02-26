@@ -41,7 +41,7 @@ pipeline {
 
             script {
                   def ccr_file=sh(script: "ls ccr/ -r  | grep ccr | head -n1", returnStdout: true).replaceAll("[\\n\\r]", "")
-                  echo "The captured file is: ${ccr_file} and the rest of files${ccr_file} like this"
+                  echo "The captured file is: ${ccr_file}        * Sent from Jenkins "
                   sh (script:"cp ccr/${ccr_file} cac/.")
                 //   sh (script: "docker build /var/lib/jenkins/workspace/ci-monitoring/cac/.  -t deployer ", returnStdout: true)
                 //   sh ("docker rm deployer2 2>/dev/null")

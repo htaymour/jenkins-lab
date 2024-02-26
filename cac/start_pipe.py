@@ -329,15 +329,16 @@ ccr = Ticket(ticket_number=ticket,
 # Pipeline steps :  Precheks, Repo update , apply config, repo update  :
 print(' * Preparing ticket information below for entering pipe :  \n' )
 ccr.prt()                             # Show ticket information
-conn = connector(ccr)                 # Init 
-conn.connect()                        # Connect to device
-pre_config = conn.show_run()          # Get current configuration
+print ("Preparing to connect to device to update repositries and apply changes. Buccle up !")
+conn = connector(ccr)                            # Init 
+if conn.connect() : Print ('Device connected ')  # Connect to device
+pre_config = conn.show_run()                     # Get current configuration
 save_log (ccr,"pre_config",pre_config)
-success = conn.apply_configuration()  # Apply configuration to device
-post_config = conn.show_run()         # Get configuration after applychanges
-save_log (ccr,"post_config",post_config)
-diff_result = compare_configs(pre_config, post_config)
-save_log (ccr,"result",diff_result)
+# success = conn.apply_configuration()             # Apply configuration to device
+# if success: post_config = conn.show_run()          # Get configuration after applychanges
+# save_log (ccr,"post_config",post_config)
+# diff_result = compare_configs(pre_config, post_config)
+# save_log (ccr,"result",diff_result)
 save_log (ccr,"changelog",ccr.__str__)
 
 # Notification :
