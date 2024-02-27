@@ -345,7 +345,7 @@ save_log (ccr,"change_log",ccr.__str__())
 diff_result = "commmited changes "
 print('\n\n\n\n\n\n ================ CHANGE IN CONFIGURATION BEFORE AND AFTER COMMIT ' + diff_result)
 msg = 'Hello from Jenkins, \n Please note the change request number ' + str(ticket) + ' has been processed with the results shown below : \n\n\n' + diff_result
-# send_email_log(email,ticket,msg)
+send_email_log(email,ticket,msg)
 
 
 
