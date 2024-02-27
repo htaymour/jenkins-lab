@@ -101,7 +101,7 @@ class connector:
                 #     output += self.ssh_shell.recv(65535).decode('utf-8')
                 #     time.sleep(0.5)  # Wait for more data
                 output = self.ssh_shell.recv(65535).decode('utf-8')
-                # print(output)  # Optionally print the output
+                print(output)  # Optionally print the output
                 return output
             except paramiko.SSHException as e:
                 print(f"Failed to retrieve running configuration: {e}")
