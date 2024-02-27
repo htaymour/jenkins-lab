@@ -1,25 +1,25 @@
 Configuration Change Request. 
 Ticket number : 1005
 Requester : Ahmed abed alrahman
-email : ahmad.abel-rahman@orange.com
+email : ahmad.abdel-rahman@orange.com
 Device name : sbx-nxos-mgmt.cisco.com
 
 change category : raw configuration
 configuration parameters :
-int loopback 66
+int loopback 68
 description Test description for Jenkins test CICD , 3ed ip 80
 ip address  10.12.80.33 255.255.255.0
 interface Lo788
 description Test description for Jenkins test CICD , 3ed ip 81
 ip address  10.11.81.33 255.255.255.0
 !
-interface Lo78
+interface Lo7
 description Test description for Jenkins test CICD , 3ed ip 81
 ip address  10.11.81.33 255.255.255.0
-interface Lo789
+interface Lo782
 description Test description for Jenkins test CICD , 3ed ip 81
 !
-interface Lo79
+interface Lo71
 description Test description for Jenkins test CICD , 3ed ip 81
 !
 ip access-list extended Testing_jenkins_NAT_ACL1
