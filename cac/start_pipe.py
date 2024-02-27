@@ -334,11 +334,11 @@ conn = connector(ccr)                            # Init
 if conn.connect() : print ('Device connected ')  # Connect to device
 pre_config = conn.show_run()                     # Get current configuration
 save_log (ccr,"pre_config",pre_config)
-# success = conn.apply_configuration()             # Apply configuration to device
-# if success: post_config = conn.show_run()          # Get configuration after applychanges
-# save_log (ccr,"post_config",post_config)
-# diff_result = compare_configs(pre_config, post_config)
-# save_log (ccr,"result",diff_result)
+success = conn.apply_configuration()             # Apply configuration to device
+if success: post_config = conn.show_run()          # Get configuration after applychanges
+save_log (ccr,"post_config",post_config)
+diff_result = compare_configs(pre_config, post_config)
+save_log (ccr,"result",diff_result)
 save_log (ccr,"change_log",ccr.__str__())
 
 # Notification :
