@@ -51,7 +51,7 @@ pipeline {
                         echo "The old container name is ${container}"
                         sh ("docker rm -f ${container}")
                     }
-               
+                  sh ("git checkout main")                              // needed before modifying the file to push back via plugin
                   sh ("docker run -d --name deployer2 deployer tail -f /dev/null")                      // Start the container 
                   sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/cac/. deployer2:/usr/src/ ")  // only used when skip build
                   sh ("docker exec deployer2 python /usr/src/start_pipe.py ${ccr_file} ")               // Deploy the job on container
