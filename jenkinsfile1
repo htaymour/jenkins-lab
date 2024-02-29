@@ -20,6 +20,11 @@
 
 pipeline {
     agent none
+     environment {
+        GIT_CREDENTIALS_ID = 'git-credentials' // The ID you gave your credentials
+        GIT_USER_EMAIL = 'user@example.com' // The user's email to configure in Git
+        GIT_USER_NAME = 'Your Name' // The user's name to configure in Git
+    }
     stages {
         stage('Init') {
             agent any
@@ -40,6 +45,7 @@ pipeline {
 
 
             script {
+              
                   def ccr_file=sh(script: "ls ccr/ -r  | grep ccr | head -n1", returnStdout: true).replaceAll("[\\n\\r]", "")
                   echo "The captured file is: ${ccr_file}        * Sent from Jenkins "
                   // sh (script:"cp ccr/${ccr_file} cac/.")
@@ -60,9 +66,9 @@ pipeline {
                   sh ("docker rm -f deployer2")                                                       // cleaning up
                   // sh ("rm ${ccr_file}")
                   // updating repo
-                  // sh ("git checkout -b main")
+                  sh ("git config user.email htaymour@github.com")
                   sh ("git add .")
-                  sh ("git commit -m 'Jenkis auto-commit by change file ${ccr_file}'")
+                  sh ("git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'")
                   sh ("git push -u origin main") 
   // //                 withCredentials([sshUserPrivateKey(credentialsId: '<credential-id>', keyFileVariable: 'SSH_KEY')]) {
   // //  sh("git push origin --all")
