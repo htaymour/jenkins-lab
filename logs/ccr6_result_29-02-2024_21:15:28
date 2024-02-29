@@ -1,0 +1,11 @@
+date : 29-02-2024_21:15:28 
+--- config1+++ config2@@ -5,8 +5,8 @@ 
+ 
+ !Command: show running-config
+-!Running configuration last done at: Thu Feb 29 20:09:19 2024
+-!Time: Thu Feb 29 20:57:49 2024
++!Running configuration last done at: Thu Feb 29 20:58:17 2024
++!Time: Thu Feb 29 20:58:22 2024
+ 
+ version 10.3(3) Bios:version  
+ hostname sandbox
