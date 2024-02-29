@@ -57,12 +57,12 @@ pipeline {
                   sh ("docker exec deployer2 python /usr/src/start_pipe.py ${ccr_file} ")               // Deploy the job on container
                   sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/")  //getting logs from finished job
                   sh ("docker rm -f deployer2")                                                       // cleaning up
-                  sh ("rm ${ccr_file}")
+                  // sh ("rm ${ccr_file}")
                   // updating repo
                   // sh ("git checkout -b main")
-  //                 sh ("git add .")
-  //                 sh ("git commit -m 'Jenkis auto-commit by change file ${ccr_file}'")
-  //                 // sh ("git push -u origin --all") 
+                  sh ("git add .")
+                  sh ("git commit -m 'Jenkis auto-commit by change file ${ccr_file}'")
+                  sh ("git push -u origin main") 
   // //                 withCredentials([sshUserPrivateKey(credentialsId: '<credential-id>', keyFileVariable: 'SSH_KEY')]) {
   // //  sh("git push origin --all")
   //  withCredentials([usernamePassword(credentialsId: 'htaymour',
