@@ -328,7 +328,7 @@ ccr = Ticket(ticket_number=ticket,
         
 # Pipeline steps :  Precheks, Repo update , apply config, repo update  :
 print(' * Preparing ticket information below for entering pipe :  \n' )
-ccr.prt()                             # Show ticket information
+ccr.prt()                                       # Show ticket information
 print ("Preparing to connect to device to update repositries and apply changes. Buccle up !")
 conn = connector(ccr)                            # Init 
 if conn.connect() : print ('Device connected ')  # Connect to device
