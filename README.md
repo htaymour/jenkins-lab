@@ -25,6 +25,6 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 Acknowledgments
 Jenkins open source developers team
 Cisco DevNet for the Always on Lab
-All contributors who have provided insights and feedback
+All contributors who have provided insights and feedback.
 
 
