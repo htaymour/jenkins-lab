@@ -16,13 +16,14 @@ Python scripts are used to parse CCRs and apply changes to network devices using
 .Cisco Nexus - Always on Lab
 For testing and simulation purposes, the project uses the Cisco Nexus - Always on lab, which provides a sandbox environment for network automation.
 
-.Contributing
+### Contributing
 Contributions to this project are welcome. Please ensure you follow the best practices for network management and automation.
 
-.License
+# License
 This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-##Acknowledgments
+## Acknowledgments
+
 Jenkins open source developers team
 Cisco DevNet for the Always on Lab
 All contributors who have provided insights and feedback.
