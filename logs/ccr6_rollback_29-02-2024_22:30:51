@@ -1,10 +1,10 @@
-date : 29-02-2024_22:31:24 
+date : 29-02-2024_22:30:51 
 term len 0
 sandbox# show running-config
 
 !Command: show running-config
-!Running configuration last done at: Thu Feb 29 22:13:51 2024
-!Time: Thu Feb 29 22:13:56 2024
+!Running configuration last done at: Thu Feb 29 21:24:27 2024
+!Time: Thu Feb 29 22:13:24 2024
 
 version 10.3(3) Bios:version  
 hostname sandbox
