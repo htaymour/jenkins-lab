@@ -20,11 +20,11 @@
 
 pipeline {
     agent none
-     environment {
-        GIT_CREDENTIALS_ID = 'git-credentials' // The ID you gave your credentials
-        GIT_USER_EMAIL = 'user@example.com' // The user's email to configure in Git
-        GIT_USER_NAME = 'Your Name' // The user's name to configure in Git
-    }
+    //  environment {
+    //     GIT_CREDENTIALS_ID = 'git-credentials' // The ID you gave your credentials
+    //     GIT_USER_EMAIL = 'user@example.com' // The user's email to configure in Git
+    //     GIT_USER_NAME = 'Your Name' // The user's name to configure in Git
+    // }
     stages {
         stage('Init') {
             agent any
