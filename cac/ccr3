@@ -1,0 +1,20 @@
+Configuration Change Request. 
+Ticket number : 1005
+Requester : Philipe mark 
+Device name : sbx-nxos-mgmt.cisco.com
+
+Change type : interface config change
+interface name : Lo780
+interface parameters :
+description : Test description for Jenkins test CICD , 3ed ip 80
+ip address  : 10.11.80.33 255.255.255.0
+
+interface name : Lo781
+interface parameters :
+description : Test description for Jenkins test CICD , 3ed ip 81
+ip address  : 10.11.81.33 255.255.255.0
+
+interface name : Eth1/48
+interface parameters :
+int description : testing jenkins automation interface description
+vlan : 100
