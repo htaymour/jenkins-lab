@@ -66,6 +66,7 @@ pipeline {
                   // sh ("docker rm -f deployer2")                                                       // cleaning up
                   // sh ("rm ${ccr_file}")
                   // updating repo
+                  sh ("git merge origin/main")
                   sh ("git git add .")
                   sh ("git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'")
 
