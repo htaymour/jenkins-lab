@@ -80,7 +80,7 @@ pipeline {
                       git add .
                       git push "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/jenkins-lab.git" main
                       '''
-                      // chmod -R a+rwx .
+                      // chmod -R a+rwx .       test
                       // git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'
                   }
            
