@@ -67,7 +67,7 @@ pipeline {
                   // sh ("rm ${ccr_file}")
                   // updating repo
                   sh ("git merge origin/main")
-                  sh ("git git add .")
+                  sh ("git add .")
                   sh ("git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'")
 
                   // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '665917fc-dd64-48aa-bd85-6a3a9260047c', url: 'https://github.com/<snip>.git']]])
