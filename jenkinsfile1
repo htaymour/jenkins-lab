@@ -78,7 +78,7 @@ pipeline {
                       git config --global user.name "${GIT_USERNAME}"
                       git config --global user.password "${GIT_PASSWORD}"
                       git add .
-                      git push "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/jenkins-lab.git" master
+                      git push "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/jenkins-lab.git" main
                       '''
                       // chmod -R a+rwx .
                       // git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'
