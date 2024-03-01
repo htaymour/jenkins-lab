@@ -278,7 +278,7 @@ def parse_ccr(data):
 def save_log(ticket,log_type,data):
     # Repo update :
     current_datetime = datetime.now()
-    logtime = current_datetime.strftime("%d-%m-%Y_%H:%M:%S")
+    logtime = current_datetime.strftime("%d_%m_%Y_%H_%M_%S")
     if not (os.path.isdir('logs')) : os.mkdir('logs')
     if log_type == "result" : logfile = ticket.ccrfile + "_result_" + logtime
     if log_type == "post_config" : logfile = ticket.device_name
