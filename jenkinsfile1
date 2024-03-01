@@ -74,10 +74,10 @@ pipeline {
                   withCredentials([usernamePassword(credentialsId: 'github_api_token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                       sh '''
                       echo "${GIT_USERNAME}"
+                      echo "${GIT_PASSWORD}"
                       git config --global user.name "${GIT_USERNAME}"
                       git config --global user.password "${GIT_PASSWORD}"
                       git add .
-
                       git push -u origin main
                       '''
                       // git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'
