@@ -1,10 +1,10 @@
-date : 01-03-2024_07:34:50 
+date : 01-03-2024_07:51:44 
 term len 0
 sandbox# show running-config
 
 !Command: show running-config
-!Running configuration last done at: Fri Mar  1 07:14:57 2024
-!Time: Fri Mar  1 07:15:02 2024
+!Running configuration last done at: Fri Mar  1 07:31:48 2024
+!Time: Fri Mar  1 07:31:54 2024
 
 version 10.3(3) Bios:version  
 hostname sandbox
@@ -186,6 +186,7 @@ object-group ip address snmp_server
   140 host 211.233.86.252 
   150 host 211.233.86.253 
   160 host 222.231.25.153 
+ip access-list 99
 ip access-list ACL_TO_CUBRO
   statistics per-entry
 ip access-list AutoQos-4.0-wlan-Acl-Bulk-Data
@@ -1334,7 +1335,7 @@ interface loopback81
   description My Learning Lab Loopback
 
 interface loopback87
-  description Test description for Jenkins test CICD , 3ed ip 80
+  description ALIONA
   ip address 87.87.87.87/24
 
 interface loopback88
