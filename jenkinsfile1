@@ -57,39 +57,27 @@ pipeline {
                         echo "The old container name is ${container}"
                         sh ("docker rm -f ${container}")
                     }
-                  // sh ("git checkout main")                               // needed before modifying the file to push back via plugin
+                  sh ("git checkout main")                               // needed before modifying the file to push back via plugin
                   sh ("docker run -d --name deployer2 deployer tail -f /dev/null")                      // Start the container 
                   sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/cac/. deployer2:/usr/src/.")  // only used when skip build
                   sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file} deployer2:/usr/src/ ")
                   sh ("docker exec deployer2 python /usr/src/start_pipe.py ${ccr_file} ")               // Deploy the job on container
-                  sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/")  //getting logs from finished job
+                  sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/.")  //getting logs from finished job
                   // sh ("docker rm -f deployer2")                                                       // cleaning up
-                  // // sh ("rm ${ccr_file}")
-                  // // updating repo
-                  // sh ("git config user.email htaymour@github.com")
-                  // sh ("git add .")
-                  // sh ("git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'")
-                  // sh ("git push -u origin main") 
-                  // withCredentials([usernamePassword(credentialsId: '665917fc-dd64-48aa-bd85-6a3a9260047c', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
-                  //     sh '''
-                  //     git config --global user.name "${GIT_USERNAME}"
-                  //     git config --global user.password "${GIT_PASSWORD}"
-                  //     git push -u origin main
-                  //     '''
-                  // }
+                  // sh ("rm ${ccr_file}")
+                  // updating repo
+                  sh ("git git add .")
+                  sh ("git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'")
 
-
-
-
-                      // git push --set-upstream origin qa
-  // //                 withCredentials([sshUserPrivateKey(credentialsId: '<credential-id>', keyFileVariable: 'SSH_KEY')]) {
-  // //  sh("git push origin --all")
-  //  withCredentials([usernamePassword(credentialsId: 'htaymour',
-  //                usernameVariable: 'htaymour',
-  //                passwordVariable: '')]){
-  //   sh("git push http://$username:$password@https://github.com/htaymour/jenkins-lab")
-  //                }
-                  
+                  // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '665917fc-dd64-48aa-bd85-6a3a9260047c', url: 'https://github.com/<snip>.git']]])
+                  withCredentials([usernamePassword(credentialsId: 'github_api_token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+                      sh '''
+                      echo "${GIT_USERNAME}"
+                      git config --global user.name "${GIT_USERNAME}"
+                      git config --global user.password "${GIT_PASSWORD}"
+                      git push -u origin main
+                      '''
+                  }
            
 
             }
