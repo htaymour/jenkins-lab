@@ -1,0 +1,19 @@
+date : 01-03-2024_07:51:44 
+--- config1+++ config2@@ -5,8 +5,8 @@ 
+ 
+ !Command: show running-config
+-!Running configuration last done at: Fri Mar  1 07:30:28 2024
+-!Time: Fri Mar  1 07:31:27 2024
++!Running configuration last done at: Fri Mar  1 07:31:48 2024
++!Time: Fri Mar  1 07:31:54 2024
+ 
+ version 10.3(3) Bios:version  
+ hostname sandbox
+@@ -1337,7 +1337,7 @@   description My Learning Lab Loopback
+ 
+ interface loopback87
+-  description Test description for Jenkins test CICD , 3ed ip 80
++  description ALIONA
+   ip address 87.87.87.87/24
+ 
+ interface loopback88
