@@ -61,13 +61,13 @@ pipeline {
                   sh ("docker run -d --name deployer2 deployer tail -f /dev/null")                      // Start the container 
                   sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/cac/. deployer2:/usr/src/.")  // only used when skip build
                   sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/ccr/${ccr_file} deployer2:/usr/src/ ")
-                  sh ("docker exec deployer2 python /usr/src/start_pipe.py ${ccr_file} ")               // Deploy the job on container
-                  sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/.")  //getting logs from finished job
+                  // sh ("docker exec deployer2 python /usr/src/start_pipe.py ${ccr_file} ")               // Deploy the job on container
+                  // sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/.")  //getting logs from finished job
                   // sh ("docker rm -f deployer2")                                                       // cleaning up
                   // sh ("rm ${ccr_file}")
                   // updating repo
                   sh ("git merge origin/main")
-                  sh ("git add .")
+                  sh ("sudo git add .")
                   sh ("git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'")
 
                   // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '665917fc-dd64-48aa-bd85-6a3a9260047c', url: 'https://github.com/<snip>.git']]])
