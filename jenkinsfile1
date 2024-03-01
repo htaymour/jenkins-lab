@@ -76,7 +76,7 @@ pipeline {
                       echo "${GIT_USERNAME}"
                       git config --global user.name "${GIT_USERNAME}"
                       git config --global user.password "${GIT_PASSWORD}"
-                      git add .
+
                       git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'
                       git push -u origin main
                       '''
