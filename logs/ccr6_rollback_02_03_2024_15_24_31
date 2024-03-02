@@ -1,24 +1,10 @@
-date : 02_03_2024_15_24_58 
-term len 0
-testsandbox(config-if)# 
-testsandbox(config-if)# !
-testsandbox(config-if)# 
-testsandbox(config-if)# end
-testsandbox# 
-testsandbox# cat bootflash:/test
-               ^
-% Invalid command at '^' marker.
-testsandbox# 
-testsandbox# end
-testsandbox# wr
-               ^
-% Incomplete command at '^' marker.
-testsandbox# term len 0
+date : 02_03_2024_15_24_31 
+term len 0
 testsandbox# show running-config
 
 !Command: show running-config
-!Running configuration last done at: Sat Mar  2 14:56:49 2024
-!Time: Sat Mar  2 14:56:50 2024
+!Running configuration last done at: Sat Mar  2 14:49:26 2024
+!Time: Sat Mar  2 14:56:23 2024
 
 version 10.3(3) Bios:version  
 hostname testsandbox
