@@ -70,19 +70,3 @@ pipeline {
     }
 }
 
-// ============== NOTES =============
-// curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
-  /* scm{
-    description("Pull files from github repo when some developers push code to github")
-
-    git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
-
-  } */
-//   steps { 
-//     script {
-   
-//     mail to: 'haytham.taymour@orange.com',
-//     subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
-//     body: "Please go to ${BUILD_URL} and verify the build"  
-// }}
-// chmod -R a+rwx .       test 
