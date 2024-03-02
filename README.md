@@ -3,7 +3,7 @@
 
 - This project demonstrates how to manage and automate network configurations using Continuous Integration/Continuous Deployment (CI/CD) practices with Jenkins. It includes a Jenkins setup on Google Cloud Platform (GCP) and a pipeline for automating network changes through Configuration Change Requests (CCRs).
 
-- This Lap is for the perpose of testing Jenkins practice and repository for CAC , CCRs and logs files.
+- This repo is for the perpose of testing Jenkins practice and repository for CAC , CCRs and logs files on github.
 - To access the VM on GCP please use the url below : 
 - http://34.16.201.175:8080/
 
