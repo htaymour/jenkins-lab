@@ -57,8 +57,8 @@ pipeline {
                         echo "The old container name is ${container}"
                         sh ("docker rm -f ${container}")
                     }
-                  sh ("git branch jenkinslogs")                               // needed before modifying the file to push back via plugin  
-                  sh ("git checkout jenkinslogs")                               // needed before modifying the file to push back via plugin
+                  // sh ("git branch jenkinslogs")          // needed first time only - done manually on vm.  
+                  sh ("git checkout jenkinslogs")          // needed before modifying the files to push back via plugin to branch logs
                   // sh ("git merge origin/main")
                   sh ("docker run -d --name deployer2 deployer tail -f /dev/null")                      // Start the container 
                   sh ("docker cp /var/lib/jenkins/workspace/ci-monitoring/cac/. deployer2:/usr/src/.")  // only used when skip build
@@ -79,7 +79,7 @@ pipeline {
                       git config --global user.name "${GIT_USERNAME}"
                       git config --global user.password "${GIT_PASSWORD}"
                       git add .
-                      git commit -am "Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER"
+                      git commit -am "Jenkis auto-commit by change file $ccr_file build number $BUILD_NUMBER"
                       git push "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/jenkins-lab.git" jenkinslogs
                       '''
                       // chmod -R a+rwx .       test 
