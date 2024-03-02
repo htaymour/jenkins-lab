@@ -1,23 +1,5 @@
 #!groovy
 
-// ============== NOTES =============
-// curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
-  /* scm{
-    description("Pull files from github repo when some developers push code to github")
-
-    git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
-
-  } */
-//   steps { 
-//     script {
-   
-//     mail to: 'haytham.taymour@orange.com',
-//     subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
-//     body: "Please go to ${BUILD_URL} and verify the build"  
-// }}
-
-
-
 pipeline {
     agent none
     //  environment {
@@ -67,10 +49,8 @@ pipeline {
                   sh ("docker cp deployer2:/usr/src/logs/. /var/lib/jenkins/workspace/ci-monitoring/logs/.")  //getting logs from finished job
                   sh ("docker rm -f deployer2")                                                       // cleaning up
                   // sh ("rm ${ccr_file}")
-                  // updating repo
 
-                  // sh ("sudo git add .")
-                  // sh ("git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'")
+                  // updating repo
                   // checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: '665917fc-dd64-48aa-bd85-6a3a9260047c', url: 'https://github.com/<snip>.git']]])
                   withCredentials([usernamePassword(credentialsId: 'github_api_token', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                       sh '''
@@ -82,13 +62,27 @@ pipeline {
                       git commit -am "Jenkis auto-commit by change file $ccr_file build number $BUILD_NUMBER"
                       git push "https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/jenkins-lab.git" jenkinslogs
                       '''
-                      // chmod -R a+rwx .       test 
-                      // git commit -am 'Jenkis auto-commit by change file ${ccr_file} for build number $BUILD_NUMBER'
+                      
                   }
-           
-
             }
             }
         }
     }
 }
+
+// ============== NOTES =============
+// curl -o $WORKSPACE/ccr1 -L 'https://github.com/htaymour/jenkins-lab/blob/main/ccr/ccr1'
+  /* scm{
+    description("Pull files from github repo when some developers push code to github")
+
+    git 'https://github.com/htaymour/jenkins-lab.git' --origin maain
+
+  } */
+//   steps { 
+//     script {
+   
+//     mail to: 'haytham.taymour@orange.com',
+//     subject: "Job '${JOB_NAME}' (${BUILD_NUMBER}) is waiting for input",
+//     body: "Please go to ${BUILD_URL} and verify the build"  
+// }}
+// chmod -R a+rwx .       test 
