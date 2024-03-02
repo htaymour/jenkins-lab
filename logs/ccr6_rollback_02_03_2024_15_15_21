@@ -1,27 +1,10 @@
-date : 02_03_2024_15_15_48 
-term len 0
-show running-config
-testsandbox(config-if)# 
-testsandbox(config-if)# description Test description for Jenkins test CICD , 3ed  ip 81
-testsandbox(config-if)# 
-testsandbox(config-if)# !
-testsandbox(config-if)# 
-testsandbox(config-if)# end
-testsandbox# 
-testsandbox# cat bootflash:/test
-               ^
-% Invalid command at '^' marker.
-testsandbox# 
-testsandbox# end
-testsandbox# wr
-               ^
-% Incomplete command at '^' marker.
-testsandbox# term len 0
+date : 02_03_2024_15_15_21 
+term len 0
 testsandbox# show running-config
 
 !Command: show running-config
-!Running configuration last done at: Sat Mar  2 14:47:46 2024
-!Time: Sat Mar  2 14:47:47 2024
+!Running configuration last done at: Sat Mar  2 14:42:38 2024
+!Time: Sat Mar  2 14:47:17 2024
 
 version 10.3(3) Bios:version  
 hostname testsandbox
