@@ -57,6 +57,7 @@ pipeline {
                         echo "The old container name is ${container}"
                         sh ("docker rm -f ${container}")
                     }
+                  sh ("git branch jenkinslogs")                               // needed before modifying the file to push back via plugin  
                   sh ("git checkout jenkinslogs")                               // needed before modifying the file to push back via plugin
                   // sh ("git merge origin/main")
                   sh ("docker run -d --name deployer2 deployer tail -f /dev/null")                      // Start the container 
