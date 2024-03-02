@@ -1,0 +1,23 @@
+date : 02_03_2024_11_24_28 
+--- config1+++ config2@@ -5,8 +5,8 @@ 
+ 
+ !Command: show running-config
+-!Running configuration last done at: Sat Mar  2 10:57:03 2024
+-!Time: Sat Mar  2 10:57:03 2024
++!Running configuration last done at: Sat Mar  2 10:57:23 2024
++!Time: Sat Mar  2 10:57:31 2024
+ 
+ version 10.3(3) Bios:version  
+ hostname testsandbox
+@@ -956,8 +956,11 @@   spanning-tree port type edge
+ 
+ interface Ethernet1/11
+-  switchport mode trunk
++  description *** PKBPNB-CGNAT-11 (172.30.176.187) *** 
++  switchport access vlan 176
+   switchport trunk allowed vlan 20
++  spanning-tree bpduguard enable
++  storm-control broadcast level 0.01
+ 
+ interface Ethernet1/12
+   description *** PKBPNB-CGNAT-13 (172.30.176.188) *** 
